@@ -1,0 +1,36 @@
+version: '3'
+services:
+
+  #MongoDB
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongodb
+      MONGO_INITDB_ROOT_PASSWORD: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      rede:
+
+  mongo-express:
+    image: mongo-express
+    platform: linux/amd64
+    container_name: mongo-express
+    ports:
+      - 28081:8081
+    depends_on:
+      - mongodb
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: mongodb
+      ME_CONFIG_MONGODB_ADMINPASSWORD: mongodb
+      ME_CONFIG_MONGODB_URL: mongodb://mongodb:mongodb@mongodb:27017/
+      ME_CONFIG_BASICAUTH_USERNAME: mongodb
+      ME_CONFIG_BASICAUTH_PASSWORD: mongodb
+    networks:
+      rede: 
+      
+networks:
+  rede:
+    driver:
+      bridge

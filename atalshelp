@@ -1,0 +1,1 @@
+mongosh "mongodb://user:pass@localhost:27018/?directConnection=true"
